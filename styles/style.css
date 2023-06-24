@@ -1,0 +1,94 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.nav{
+    padding: 0.5rem 1rem;
+    background-color: white;
+    border-bottom: 1px solid rgb(245, 244, 244);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo{
+    font-size: 2.5rem;
+    color: rgb(182,34,34)
+}
+#convertBtn, #upload-msg{
+    border: none;
+    outline: none;
+    background: rgb(89,150,248);
+    border-radius: 0.2rem;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+#convertBtn{
+    display: none;
+}
+#convertBtn:hover{
+    background: rgb(89,150,248);
+    cursor: pointer;
+}
+#convertBtn:active{
+    transform: scale(0.98);
+}
+
+.input-page{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+.add-more-files{
+    width: 50vw;
+    border-radius: 0.3rem;
+    padding: 3rem;
+    text-align: center;
+    background-color: rgba(230,230,250,0.13);
+    box-shadow: rgba(0,0,0,0.35) 0px 5px 15px;
+}
+.inp-container{
+    cursor: pointer;
+    position: relative;
+    box-shadow: rgba(17,17,26,0.1) 0px 1px 0px, rgba(17,17,26,0.1) 0px 8px 24px, rgba(124,124,145,0.1) 0px 16px 48px;
+    height: 15rem;
+    width: 15rem;
+    border-radius: 50%;
+    border: 1px dashed rgb(195,193,193);
+    margin: auto;
+    background-color: rgba(154,127,228,0.068);
+    border-width: 0.15rem;
+}
+#upload-file{
+    opacity: 0;
+    display: block;
+    height: 16rem;
+    width: 100%;
+    position: absolute;
+    cursor: pointer;
+}
+.img-icon{
+    color: rgba(128,144,238,0.596);
+}
+#custom-file{
+    color: rgb(96,102,155);
+    position: relative;
+    top: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+span{
+    font-size: 1.45rem;
+}
+.drop{
+    margin-top: 3rem;
+    font-size: 1rem;
+    color: rgb(108,107, 175)
+}
