@@ -6,6 +6,7 @@ let x;
 let y;
 let width;
 let height;
+let valid = false;
 // Elementos del DOM
 const createPDF = document.getElementById("create-pdf"); // Contenedor para mostrar las imágenes seleccionadas
 const inputPage = document.getElementById("input-page"); // Página para seleccionar imágenes
@@ -62,7 +63,29 @@ const handleDelete = (e) => {
     convertToPDF(); // Actualizar la visualización del PDF si quedan imágenes
   }
 };
-let valid = false;
+
+// Función para mover un elemento hacia arriba en la lista
+const moveUp = (e) => {
+  const index = data.findIndex((item) => item.time === e.currentTarget.id);
+  if (index > 0) {
+    const temp = data[index];
+    data[index] = data[index - 1];
+    data[index - 1] = temp;
+    convertToPDF();
+  }
+};
+
+// Función para mover un elemento hacia abajo en la lista
+const moveDown = (e) => {
+  const index = data.findIndex((item) => item.time === e.currentTarget.id);
+  if (index < data.length - 1) {
+    const temp = data[index];
+    data[index] = data[index + 1];
+    data[index + 1] = temp;
+    convertToPDF();
+  }
+};
+
 // Función para incrustar las imágenes en el PDF
 const embedImages = async () => {
   const pdfDoc = await PDFLib.PDFDocument.create();
@@ -114,19 +137,20 @@ function convertToPDF() {
     const modify = document.createElement("div");
     modify.setAttribute("class", "modify");
 
-    const btn2 = document.createElement("button");
-    btn2.setAttribute("class", "delete-btn");
-    btn2.setAttribute("id", item.time);
-
-    const remove = document.createElement("i");
-    remove.setAttribute("class", "fa fa-trash");
-    btn2.appendChild(remove);
-    btn2.addEventListener("click", (e) => {
+    const btnDel = document.createElement("button");
+    btnDel.setAttribute("class", "delete-btn");
+    btnDel.setAttribute("id", item.time);
+    const trash = document.createElement("i");
+    trash.setAttribute("class", "fa fa-trash");
+    btnDel.appendChild(trash);
+    btnDel.addEventListener("click", (e) => {
       handleDelete(e);
     });
 
-    modify.appendChild(btn2);
+    
 
+  
+    modify.appendChild(btnDel);
     fileItem.appendChild(modify);
 
     const imgContainer = document.createElement("div");
@@ -134,6 +158,7 @@ function convertToPDF() {
     const img = document.createElement("img");
     img.setAttribute("id", "img");
     img.src = item.list.result;
+    
     imgContainer.appendChild(img);
     fileItem.appendChild(imgContainer);
 
@@ -142,6 +167,34 @@ function convertToPDF() {
     imgName.innerHTML = item.fileName;
     fileItem.appendChild(imgName);
     createPDF.appendChild(fileItem);
+
+    const btnContainer = document.createElement("div");
+    btnContainer.setAttribute("class", "btn-container");
+    fileItem.appendChild(btnContainer);
+
+    const btnUp = document.createElement("button");
+    btnUp.setAttribute("class", "up-btn");
+    btnUp.setAttribute("id", item.time);
+    const up = document.createElement("i");
+    up.setAttribute("class", "fa fa-chevron-up");
+    btnUp.appendChild(up);
+    btnUp.addEventListener("click", (e) => {
+      moveUp(e);
+    });
+
+    const btnDown = document.createElement("button");
+    btnDown.setAttribute("class", "down-btn");
+    btnDown.setAttribute("id", item.time);
+    const down = document.createElement("i");
+    down.setAttribute("class", "fa fa-chevron-down");
+    btnDown.appendChild(down);
+    btnDown.addEventListener("click", (e) => {
+      moveDown(e);
+    });
+
+    btnContainer.appendChild(btnUp);
+    btnContainer.appendChild(btnDown);
+
   });
 
   const addMoreFile = document.createElement("div");
@@ -178,4 +231,4 @@ function convertToPDF() {
 const backToHome = () => {
   location.reload();
 };
-home?.addEventListener("click", backToHome);
+home.addEventListener("click", backToHome);

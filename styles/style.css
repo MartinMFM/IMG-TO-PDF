@@ -128,8 +128,8 @@ span {
     background: none;
     text-align: center;
     position: relative;
-    width: 10rem;
-    height: 16rem;
+    width: 12rem;
+    height: 18rem;
     margin: 1rem;
     display: inline-block;
     transition: 0.3s all ease-in-out;
@@ -215,4 +215,16 @@ cursor: pointer;
 .create-pdf .add-more-file p{
 position: relative;
 top: -3.5rem;
+}
+
+.btn-container button{
+  margin: 0 0.2rem;
+  background: none;
+  color: var(--tertiary-color);
+  border: none;
+  outline: none;
+  font-size: 2rem;
+  transition: 0.3s all ease-in-out;
+  opacity: 0;
+  padding: 0.3rem 0.5rem;
 }
