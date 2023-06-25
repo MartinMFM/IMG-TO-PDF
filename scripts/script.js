@@ -1,0 +1,181 @@
+// Declaración de variables
+let data = []; // Array para almacenar los datos de las imágenes
+let pdfName = ""; // Nombre del archivo PDF
+let margin = 50;
+let x;
+let y;
+let width;
+let height;
+// Elementos del DOM
+const createPDF = document.getElementById("create-pdf"); // Contenedor para mostrar las imágenes seleccionadas
+const inputPage = document.getElementById("input-page"); // Página para seleccionar imágenes
+const pdfPage = document.getElementById("pdf-page"); // Página para mostrar el PDF
+const convertBtn = document.getElementById("convertBtn"); // Botón de conversión
+const uploadFile = document.getElementById("upload-file"); // Entrada de carga de archivos
+const home = document.getElementById("home"); // Botón de inicio
+// Función para codificar archivos de imágenes como URL
+
+convertBtn.style.display = "none";
+
+const encodeImageFileAsURL = (element) => {
+  // Ocultar la página de entrada y mostrar la página del PDF
+  inputPage.style.display = "none";
+  pdfPage.style.display = "inline-block";
+
+  const length = element.files.length;
+  for (let i = 0; i < length; i++) {
+    let file = element.files[i];
+    let pdfname = element.files[i];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    // Crear un objeto para almacenar los datos de la imagen
+    let obj = {
+      list: reader,
+      fileName: file.name,
+      time: new Date().toString() + i,
+    };
+
+    // Leer el archivo y manejar el evento de carga
+    reader.onloadend = () => {
+      data = [...data, obj]; // Agregar el objeto al array de datos
+      pdfName = pdfname.name; // Establecer el nombre del PDF
+      convertToPDF(); // Actualizar la visualización del PDF
+      saveAsPDF(); // Mostrar el botón de conversión
+    };
+  }
+
+  uploadFile.value = null; // Restablecer el valor de la entrada de archivos
+};
+
+// Función para guardar el PDF
+const saveAsPDF = () => {
+  convertBtn.style.display = "inline-block"; // Mostrar el botón de conversión
+};
+
+// Función para manejar el evento de eliminación de una imagen
+const handleDelete = (e) => {
+  data = data.filter((item) => item.time !== e.currentTarget.id);
+  if (data.length === 0) {
+    location.reload(); // Recargar la página si no hay imágenes restantes
+  } else {
+    convertToPDF(); // Actualizar la visualización del PDF si quedan imágenes
+  }
+};
+let valid = false;
+// Función para incrustar las imágenes en el PDF
+const embedImages = async () => {
+  const pdfDoc = await PDFLib.PDFDocument.create();
+  for (let i = 0; i < data.length; i++) {
+    const jpgUrl = data[i].list.result;
+    const jpgImageBytes = await fetch(jpgUrl).then((res) => res.arrayBuffer());
+    const jpgImage = await pdfDoc.embedJpg(jpgImageBytes);
+    const page = pdfDoc.addPage();
+    if (valid) {
+      // Obtener el tamaño de la imagen
+      const jpgDims = jpgImage.scale(0.5);
+      const jpgWidth = jpgDims.width;
+      const jpgHeight = jpgDims.height;
+      page.setSize(jpgWidth, jpgHeight);
+      x = margin;
+      y = margin;
+      width = page.getWidth() - margin * 2;
+      height = page.getHeight() - margin * 2;
+      page.drawImage(jpgImage, { x, y, width, height });
+    } else {
+      // El tamaño de la hoja es de a4
+      page.setSize(595, 842);
+      const jpgDims = jpgImage.scale(1);
+      const jpgWidth = jpgDims.width;
+      const jpgHeight = jpgDims.height;
+      const aspectRatio = jpgWidth / jpgHeight;
+      const x = margin;
+      const y = (page.getHeight() - page.getWidth() / aspectRatio) / 2 + margin;
+      const width = page.getWidth() - margin * 2;
+      const height = width / aspectRatio;
+      page.drawImage(jpgImage, { x, y, width, height });
+    }
+  }
+
+  const pdfBytes = await pdfDoc.save();
+
+  download(pdfBytes, pdfName.slice(0, -4), "application/pdf");
+
+  setTimeout(backToHome, 1000);
+};
+
+// Función para convertir las imágenes en elementos del PDF
+function convertToPDF() {
+  createPDF.innerHTML = "";
+  data.forEach((item, index) => {
+    const fileItem = document.createElement("div");
+    fileItem.setAttribute("class", "file-item");
+
+    const modify = document.createElement("div");
+    modify.setAttribute("class", "modify");
+
+    const btn2 = document.createElement("button");
+    btn2.setAttribute("class", "delete-btn");
+    btn2.setAttribute("id", item.time);
+
+    const remove = document.createElement("i");
+    remove.setAttribute("class", "fa fa-trash");
+    btn2.appendChild(remove);
+    btn2.addEventListener("click", (e) => {
+      handleDelete(e);
+    });
+
+    modify.appendChild(btn2);
+
+    fileItem.appendChild(modify);
+
+    const imgContainer = document.createElement("div");
+    imgContainer.setAttribute("class", "img-container");
+    const img = document.createElement("img");
+    img.setAttribute("id", "img");
+    img.src = item.list.result;
+    imgContainer.appendChild(img);
+    fileItem.appendChild(imgContainer);
+
+    const imgName = document.createElement("p");
+    imgName.setAttribute("id", "img-name");
+    imgName.innerHTML = item.fileName;
+    fileItem.appendChild(imgName);
+    createPDF.appendChild(fileItem);
+  });
+
+  const addMoreFile = document.createElement("div");
+  addMoreFile.setAttribute("class", "add-more-file");
+
+  const addFile = document.createElement("div");
+  addFile.setAttribute("class", "inp-cont");
+
+  const input = document.createElement("input");
+  input.setAttribute("id", "inp");
+  input.type = "file";
+  input.multiple = true;
+  input.onchange = function () {
+    encodeImageFileAsURL(this);
+  };
+
+  const p = document.createElement("p");
+  const i = document.createElement("i");
+  i.setAttribute("class", "fa fa-plus");
+  p.appendChild(i);
+
+  const label = document.createElement("label");
+  label.htmlFor = "inp";
+  label.innerHTML = "Add Files";
+  
+  addFile.appendChild(p);
+  addFile.appendChild(label);
+  addFile.appendChild(input);
+  addMoreFile.appendChild(addFile);
+  createPDF.appendChild(addMoreFile);
+}
+
+// Función para regresar a la página principal
+const backToHome = () => {
+  location.reload();
+};
+home?.addEventListener("click", backToHome);

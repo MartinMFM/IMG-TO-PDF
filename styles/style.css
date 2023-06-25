@@ -1,94 +1,218 @@
-body{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,400&display=swap');
+:root {
+  --primary-color: #576CBC;
+  --secondary-color: rgba(230, 230, 250, 0.13);
+  --tertiary-color: rgb(182, 34, 34);
+  --background-color: #0B2447;
+  --text-color: rgb(255, 255, 255);
+  --border-color: rgb(0, 69, 109);
 }
 
-.nav{
-    padding: 0.5rem 1rem;
-    background-color: white;
-    border-bottom: 1px solid rgb(245, 244, 244);
-    position: sticky;
-    top: 0;
-    z-index: 1;
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.nav {
+  padding: 0.5rem 1rem;
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-size: 2.5rem;
+  color: var(--tertiary-color);
+}
+#convertBtn,
+#upload-msg {
+  border: none;
+  outline: none;
+  background: var(--primary-color);
+  border-radius: 0.2rem;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+#convertBtn:hover {
+  background: var(--primary-color);
+  cursor: pointer;
+}
+#convertBtn:active {
+  transform: scale(0.98);
+}
+
+.input-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background-color: var(--background-color);
+}
+.add-more-files {
+  width: 50vw;
+  border-radius: 0.3rem;
+  padding: 3rem;
+  text-align: center;
+  background-color: var(--secondary-color);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.inp-container {
+  cursor: pointer;
+  position: relative;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(124, 124, 145, 0.1) 0px 16px 48px;
+  height: 15rem;
+  width: 15rem;
+  border-radius: 50%;
+  border: 1px dashed var(--text-color);
+  margin: auto;
+  background-color: rgba(154, 127, 228, 0.068);
+  border-width: 0.15rem;
+}
+#upload-file {
+  opacity: 0;
+  display: block;
+  height: 16rem;
+  width: 100%;
+  position: absolute;
+  cursor: pointer;
+}
+.img-icon {
+  color: rgba(128, 144, 238, 0.596);
+}
+#custom-file {
+  color: var(--text-color);
+  position: relative;
+  top: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+span {
+  font-size: 1.45rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.drop {
+  margin-top: 3rem;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.pdf-page{
+    display: none;
+    width: 100%;
+    overflow: hidden;
+    min-height: 90vh;
+    background-color: var(--background-color);
+}
+.create-pdf{
+    position: relative;
+    padding: 1rem;
+    margin: auto;
+}
+.file-item{
+    background-color: var(--secondary-color)!important;
+    padding: 0 1rem;
+    background: none;
+    text-align: center;
+    position: relative;
+    width: 10rem;
+    height: 16rem;
+    margin: 1rem;
+    display: inline-block;
+    transition: 0.3s all ease-in-out;
+    box-shadow: rgb(0,0,0,0.24) 0px 3px 8px;
+    border: 1px solid var(--border-color);
+}
+.modify button{
+    padding: 0.3rem;
+    color: var(--tertiary-color);
+    border-radius: 50%;
+}
+.img-container{
+    width: 100%;
+    margin: auto;
+    height: 11rem;
+    position: relative;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
 }
-.logo{
-    font-size: 2.5rem;
-    color: rgb(182,34,34)
+#img{
+    position: relative;
+    max-width: 9rem;
+    max-height: 11rem;
 }
-#convertBtn, #upload-msg{
+.file-item button{
+    margin: 0 0.2rem;
+    background: none;
     border: none;
     outline: none;
-    background: rgb(89,150,248);
-    border-radius: 0.2rem;
-    color: white;
-    padding: 0.5rem 1rem;
-    font-size: 1.2rem;
-    margin-right: 0.5rem;
+    font-size: 2rem;
+    transition: 0.3s all ease-in-out;
+    opacity: 0;
+    padding: 0.3rem 0.5rem;
 }
-#convertBtn{
-    display: none;
+.file-item:hover button{
+    opacity: 1;
 }
-#convertBtn:hover{
-    background: rgb(89,150,248);
-    cursor: pointer;
-}
-#convertBtn:active{
-    transform: scale(0.98);
+#img-name{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 8.5rem;
+    text-align: center;
+    margin: 0 auto;
 }
 
-.input-page{
-    display: none;
-    justify-content: center;
-    align-items: center;
-    min-height: 90vh;
+.add-more-file{
+  padding: 0 1rem;
+  background: none;
+  text-align: center;
+  position: relative;
+  margin: 0.5rem;
+  display: inline-block;
+  transition: 0.3s all ease-in-out;   
+  width: 10rem;
+  height: 16rem; 
+  vertical-align: top;
 }
-.add-more-files{
-    width: 50vw;
-    border-radius: 0.3rem;
-    padding: 3rem;
-    text-align: center;
-    background-color: rgba(230,230,250,0.13);
-    box-shadow: rgba(0,0,0,0.35) 0px 5px 15px;
+.inp-cont{
+display: flex;
+flex-direction: column;
+flex-flow: column-reverse;
+border-radius: 50%;
+position: relative;
+text-align: center;
+border: none;
+background: var(--secondary-color); 
+width: 9rem;
+height: 9rem;
+margin: 3rem auto;
 }
-.inp-container{
-    cursor: pointer;
-    position: relative;
-    box-shadow: rgba(17,17,26,0.1) 0px 1px 0px, rgba(17,17,26,0.1) 0px 8px 24px, rgba(124,124,145,0.1) 0px 16px 48px;
-    height: 15rem;
-    width: 15rem;
-    border-radius: 50%;
-    border: 1px dashed rgb(195,193,193);
-    margin: auto;
-    background-color: rgba(154,127,228,0.068);
-    border-width: 0.15rem;
+#inp{
+opacity: 0;
+display: block;
+width: 9rem;
+height: 9rem;
+border-radius: 50%;
+position: absolute;
+cursor: pointer;
 }
-#upload-file{
-    opacity: 0;
-    display: block;
-    height: 16rem;
-    width: 100%;
-    position: absolute;
-    cursor: pointer;
-}
-.img-icon{
-    color: rgba(128,144,238,0.596);
-}
-#custom-file{
-    color: rgb(96,102,155);
-    position: relative;
-    top: 0.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-span{
-    font-size: 1.45rem;
-}
-.drop{
-    margin-top: 3rem;
-    font-size: 1rem;
-    color: rgb(108,107, 175)
+
+.create-pdf .add-more-file p{
+position: relative;
+top: -3.5rem;
 }
