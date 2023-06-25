@@ -33,6 +33,9 @@ body {
   font-size: 2.5rem;
   color: var(--tertiary-color);
 }
+.fa-file-pdf-o{
+  color: var(--tertiary-color);
+}
 #convertBtn,
 #upload-msg {
   border: none;
@@ -128,8 +131,8 @@ span {
     background: none;
     text-align: center;
     position: relative;
-    width: 10rem;
-    height: 16rem;
+    width: 12rem;
+    height: 18rem;
     margin: 1rem;
     display: inline-block;
     transition: 0.3s all ease-in-out;
@@ -198,15 +201,21 @@ position: relative;
 text-align: center;
 border: none;
 background: var(--secondary-color); 
-width: 9rem;
-height: 9rem;
+width: 12rem;
+height: 12rem;
 margin: 3rem auto;
 }
+.inp-cont label{
+  position: relative;
+  top: -1rem;
+}
+
+
 #inp{
 opacity: 0;
 display: block;
-width: 9rem;
-height: 9rem;
+width: 12rem;
+height: 12rem;
 border-radius: 50%;
 position: absolute;
 cursor: pointer;
@@ -214,5 +223,18 @@ cursor: pointer;
 
 .create-pdf .add-more-file p{
 position: relative;
-top: -3.5rem;
+top: -5rem;
+color: var(--tertiary-color);
+}
+
+.btn-container button{
+  margin: 0 0.2rem;
+  background: none;
+  color: var(--tertiary-color);
+  border: none;
+  outline: none;
+  font-size: 2rem;
+  transition: 0.3s all ease-in-out;
+  opacity: 0;
+  padding: 0.3rem 0.5rem;
 }
