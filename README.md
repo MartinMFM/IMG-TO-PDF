@@ -1,7 +1,7 @@
 # Conversor de Imágenes a PDF
 
 [![Estado del proyecto](https://img.shields.io/badge/Estado-Activo-brightgreen)](https://github.com/MartinMFM/IMG-TO-PDF)
-[![Licencia](https://img.shields.io/badge/Licencia-MIT-blue)](https://github.com/MartinMFM/IMG-TO-PDF/main/LICENSE)
+[![Licencia](https://img.shields.io/badge/Licencia-MIT-blue)](https://github.com/MartinMFM/IMG-TO-PDF/blob/main/LICENSE)
 
 
 Este proyecto es un conversor de imágenes a formato PDF, diseñado para proporcionar una forma sencilla y conveniente de convertir imágenes individuales o varias imágenes en un archivo PDF. La aplicación web permite a los usuarios cargar imágenes en varios formatos, realizar ajustes y personalizaciones, y generar un archivo PDF de salida de alta calidad.
@@ -14,8 +14,8 @@ Este proyecto es un conversor de imágenes a formato PDF, diseñado para proporc
 
 ## Capturas de pantalla
 
-![Captura de pantalla 1](screenshots/screenshot1.png)
-![Captura de pantalla 2](screenshots/screenshot2.png)
+![Captura de pantalla 1](ss/imagen1.png)
+![Captura de pantalla 2](ss/imagen2.png)
 
 ## Demostración en vivo
 
