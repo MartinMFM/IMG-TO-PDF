@@ -15,12 +15,13 @@ const convertBtn = document.getElementById("convertBtn"); // Botón de conversi�
 const uploadFile = document.getElementById("upload-file"); // Entrada de carga de archivos
 const home = document.getElementById("home"); // Botón de inicio
 const optionSize = document.getElementById("op-size");
-const marginBtns = document.querySelectorAll(".margin-btn");
-const configContainer = document.getElementById("config-container");
+const marginBtns = document.querySelectorAll('.margin-btn');
+const configContainer = document.getElementById('config-container');
 // Función para codificar archivos de imágenes como URL
 
+
 const encodeImageFileAsURL = (element) => {
-  configContainer.style.display = "block";
+  configContainer.style.display = 'block';
   inputPage.style.display = "none";
   pdfPage.style.display = "inline-block";
 
@@ -83,11 +84,11 @@ const moveDown = (e) => {
 
 // Función para incrustar las imágenes en el PDF
 const embedImages = async () => {
-  if (margin == "sinMargen") {
+  if(margin == 'sinMargen'){
     margin = 0;
-  } else if (margin == "pequeño") {
+  }else if(margin == 'pequeño'){
     margin = 20;
-  } else if (margin == "grande") {
+  }else if(margin == 'grande'){
     margin = 30;
   }
 
@@ -225,7 +226,7 @@ function convertToPDF() {
 
   const label = document.createElement("label");
   label.innerHTML = "Añadir imagen";
-
+  
   addFile.appendChild(p);
   addFile.appendChild(label);
   addFile.appendChild(input);
@@ -239,22 +240,23 @@ const backToHome = () => {
 };
 home.addEventListener("click", backToHome);
 
+
 optionSize.addEventListener("change", (e) => {
-  if (e.target.value === "a4") {
+  if(e.target.value === "a4"){
     size = 0;
-  } else {
+  }else{
     size = 1;
   }
 });
 
 let selectedBtn = marginBtns[1]; // Establecer el botón predeterminado
-marginBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
+marginBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
     // Agregar la clase "selected" al botón que se hizo clic
-    btn.classList.add("selected");
+    btn.classList.add('selected');
     // Quitar la clase "selected" del botón predeterminado
-    selectedBtn.classList.remove("selected");
+    selectedBtn.classList.remove('selected');
     selectedBtn = btn;
-    margin = btn.getAttribute("data-margin");
+    margin = btn.getAttribute('data-margin');
   });
 });
