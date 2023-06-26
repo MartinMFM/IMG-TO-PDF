@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,400&display=swap");
 :root {
-  --primary-color: #576CBC;
+  --primary-color: #576cbc;
   --secondary-color: rgba(230, 230, 250, 0.13);
   --tertiary-color: rgb(182, 34, 34);
-  --background-color: #0B2447;
+  --background-color: #0b2447;
   --text-color: rgb(255, 255, 255);
   --border-color: rgb(0, 69, 109);
 }
@@ -24,22 +24,22 @@ body {
   border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .logo {
   font-size: 2.5rem;
   color: var(--tertiary-color);
 }
-.fa-file-pdf-o{
+.fa-file-pdf-o {
   color: var(--tertiary-color);
 }
 #convertBtn,
 #upload-msg {
-  border: none;
-  outline: none;
+  border: 1px solid white;
   background: var(--primary-color);
   border-radius: 0.2rem;
   color: white;
@@ -47,13 +47,20 @@ body {
   font-size: 1.2rem;
   margin-right: 0.5rem;
   cursor: pointer;
+  transition: 0.2s all ease-in-out;
 }
 #convertBtn:hover {
-  background: var(--primary-color);
+  background: var(--tertiary-color);
   cursor: pointer;
 }
 #convertBtn:active {
   transform: scale(0.98);
+}
+.saveBtn-Cont {
+  margin: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .input-page {
@@ -113,121 +120,123 @@ span {
   color: var(--text-color);
 }
 
-.pdf-page{
-    display: none;
-    width: 100%;
-    overflow: hidden;
-    min-height: 90vh;
-    background-color: var(--background-color);
+.pdf-page {
+  display: none;
+  width: 80%;
+  overflow: hidden;
+  min-height: 90vh;
+  background-color: var(--background-color);
 }
-.create-pdf{
-    position: relative;
-    padding: 1rem;
-    margin: auto;
+.create-pdf {
+  position: relative;
+  padding: 1rem;
+  margin: auto;
 }
-.file-item{
-    background-color: var(--secondary-color)!important;
-    padding: 0 1rem;
-    background: none;
-    text-align: center;
-    position: relative;
-    width: 12rem;
-    height: 18rem;
-    margin: 1rem;
-    display: inline-block;
-    transition: 0.3s all ease-in-out;
-    box-shadow: rgb(0,0,0,0.24) 0px 3px 8px;
-    border: 1px solid var(--border-color);
+.file-item {
+  background-color: var(--secondary-color) !important;
+  padding: 0 1rem;
+  background: none;
+  text-align: center;
+  position: relative;
+  width: 11rem;
+  height: 18rem;
+  margin: 1rem;
+  display: inline-block;
+  transition: 0.3s all ease-in-out;
+  box-shadow: rgb(0, 0, 0, 0.24) 0px 3px 8px;
+  border: 1px solid var(--border-color);
 }
-.modify button{
-    padding: 0.3rem;
-    color: var(--tertiary-color);
-    border-radius: 50%;
+.modify button {
+  padding: 0.3rem;
+  color: var(--tertiary-color);
+  border-radius: 50%;
 }
-.img-container{
-    width: 100%;
-    margin: auto;
-    height: 11rem;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.img-container {
+  width: 100%;
+  margin: auto;
+  height: 11rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-#img{
-    position: relative;
-    max-width: 9rem;
-    max-height: 11rem;
+#img {
+  position: relative;
+  max-width: 9rem;
+  max-height: 11rem;
 }
-.file-item button{
-    margin: 0 0.2rem;
-    background: none;
-    border: none;
-    outline: none;
-    font-size: 2rem;
-    transition: 0.3s all ease-in-out;
-    opacity: 0;
-    padding: 0.3rem 0.5rem;
+.file-item button {
+  margin: 0 0.2rem;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 2rem;
+  transition: 0.3s all ease-in-out;
+  opacity: 0;
+  padding: 0.3rem 0.5rem;
 }
-.file-item:hover button{
-    opacity: 1;
+.file-item:hover button {
+  opacity: 1;
 }
-#img-name{
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 8.5rem;
-    text-align: center;
-    margin: 0 auto;
+#img-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 8.5rem;
+  text-align: center;
+  margin: 0 auto;
 }
 
-.add-more-file{
+.add-more-file {
   padding: 0 1rem;
   background: none;
   text-align: center;
   position: relative;
   margin: 0.5rem;
   display: inline-block;
-  transition: 0.3s all ease-in-out;   
+  transition: 0.3s all ease-in-out;
   width: 10rem;
-  height: 16rem; 
+  height: 16rem;
   vertical-align: top;
 }
-.inp-cont{
-display: flex;
-flex-direction: column;
-flex-flow: column-reverse;
-border-radius: 50%;
-position: relative;
-text-align: center;
-border: none;
-background: var(--secondary-color); 
-width: 12rem;
-height: 12rem;
-margin: 3rem auto;
-}
-.inp-cont label{
+.inp-cont {
+  display: flex;
+  flex-direction: column;
+  flex-flow: column-reverse;
+  border-radius: 50%;
   position: relative;
-  top: -1rem;
+  text-align: center;
+  border: none;
+  background: var(--secondary-color);
+  width: 12rem;
+  height: 12rem;
+  margin: 3rem auto;
+}
+.inp-cont label {
+  position: relative;
 }
 
-
-#inp{
-opacity: 0;
-display: block;
-width: 12rem;
-height: 12rem;
-border-radius: 50%;
-position: absolute;
-cursor: pointer;
+.fa.fa-plus {
+  font-size: 2rem;
 }
 
-.create-pdf .add-more-file p{
-position: relative;
-top: -5rem;
-color: var(--tertiary-color);
+#inp {
+  opacity: 0;
+  display: block;
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  position: absolute;
+  cursor: pointer;
 }
 
-.btn-container button{
+.create-pdf .add-more-file p {
+  position: relative;
+  top: -4.5rem;
+  color: var(--tertiary-color);
+}
+
+.btn-container button {
   margin: 0 0.2rem;
   background: none;
   color: var(--tertiary-color);
@@ -237,4 +246,80 @@ color: var(--tertiary-color);
   transition: 0.3s all ease-in-out;
   opacity: 0;
   padding: 0.3rem 0.5rem;
+}
+
+#config-container {
+  display: none;
+  position: fixed;
+  top: calc(109% - 100vh);
+  right: 0;
+  width: 350px;
+  height: calc(100vh - 60px);
+  background-color: var(--primary-color);
+  z-index: 1;
+  transition: 0.3s all ease-in-out;
+  color: var(--text-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.title {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  border-bottom: 1px solid var(--border-color);
+  width: 100%;
+}
+
+.size-pag {
+  padding: 1rem;
+  color: var(--tertiary-color);
+}
+#op-size {
+  width: 100%;
+  padding: 0.5rem;
+  margin: -1rem 0;
+  color: black;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.margin-cont {
+  padding: 0 1rem;
+  & h3 {
+    color: var(--tertiary-color);
+  }
+}
+
+.margin-btns {
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+.margin-btn {
+  width: 48%;
+  color: var(--text-color);
+  font-size: 1rem;
+  margin: 0.5rem;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  &:hover {
+    cursor: pointer;
+  }
+}
+/* Estilo para el botón de margen seleccionado */
+.margin-btn.selected {
+  background-color: var(--primary-color);
+  font-weight: bold;
+  color: var(--tertiary-color);
+  border: 1px solid var(--tertiary-color);
+}
+
+/* Estilo para el botón de margen seleccionado al pasar el mouse sobre él */
+.margin-btn:hover {
+  background-color: var(--primary-color);
+  font-weight: bold;
+  color: var(--tertiary-color);
+  border: 1px solid var(--tertiary-color);
 }
