@@ -19,9 +19,7 @@
   <body>
     <div class="nav">
       <span class="logo" id="home"> <i class="fa fa-file-pdf-o"></i> PDF </span>
-      <div>
-        <button id="convertBtn" onclick={embedImages()}>SAVE AS PDF</button>
-      </div>
+      
     </div>
 
     <div class="input-page" id="input-page">
@@ -45,10 +43,43 @@
 
     <div class="pdf-page" id="pdf-page">
       <div class="create-pdf" id="create-pdf">
-        
+        <div class="file-item">
+          <div class="modify">
+            <button class="delete-btn">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+          <div class="img-container">
+            <img id="img" src="./imagen0001.jpg" alt="img" />
+          </div>
+          <p id="img-name">1.jpg</p>
+        </div>
       </div>
     </div>
 
+    <div id="config-container">
+      <div class="title">
+        <h2>Opciones</h2>
+      </div>
+      <div class="size-pag">
+        <h3>Tamaño de pagina</h3>
+        <select name="option-size" id="op-size">
+          <option value="a4">A4</option>
+        <option value="auto">Ajustado</option>
+        </select>
+      </div>
+      <div class="margin-cont">
+        <h3>Márgenes</h3>
+        <div class="margin-btns">
+          <button class="margin-btn" data-margin="sinMargen">Sin margen</button>
+          <button class="margin-btn selected" data-margin="pequeño">Pequeño</button>
+          <button class="margin-btn" data-margin="grande">Grande</button>
+        </div>
+      </div>
+      <div class="saveBtn-Cont">
+        <button id="convertBtn" onclick={embedImages()}>GUARDAR COMO PDF</button>
+      </div>
+    </div>
     <script src="./scripts/script.js"></script>
   </body>
 </html>

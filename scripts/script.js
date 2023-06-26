@@ -1,12 +1,12 @@
 // Declaración de variables
 let data = []; // Array para almacenar los datos de las imágenes
 let pdfName = ""; // Nombre del archivo PDF
-let margin = 50;
+let margin = 'pequeño'; // Margen de la imagen
 let x;
 let y;
 let width;
 let height;
-let valid = false;
+let size = 0;
 // Elementos del DOM
 const createPDF = document.getElementById("create-pdf"); // Contenedor para mostrar las imágenes seleccionadas
 const inputPage = document.getElementById("input-page"); // Página para seleccionar imágenes
@@ -14,12 +14,14 @@ const pdfPage = document.getElementById("pdf-page"); // Página para mostrar el 
 const convertBtn = document.getElementById("convertBtn"); // Botón de conversión
 const uploadFile = document.getElementById("upload-file"); // Entrada de carga de archivos
 const home = document.getElementById("home"); // Botón de inicio
+const optionSize = document.getElementById("op-size");
+const marginBtns = document.querySelectorAll('.margin-btn');
+const configContainer = document.getElementById('config-container');
 // Función para codificar archivos de imágenes como URL
 
-convertBtn.style.display = "none";
 
 const encodeImageFileAsURL = (element) => {
-  // Ocultar la página de entrada y mostrar la página del PDF
+  configContainer.style.display = 'block';
   inputPage.style.display = "none";
   pdfPage.style.display = "inline-block";
 
@@ -42,17 +44,14 @@ const encodeImageFileAsURL = (element) => {
       data = [...data, obj]; // Agregar el objeto al array de datos
       pdfName = pdfname.name; // Establecer el nombre del PDF
       convertToPDF(); // Actualizar la visualización del PDF
-      saveAsPDF(); // Mostrar el botón de conversión
+      
     };
   }
 
   uploadFile.value = null; // Restablecer el valor de la entrada de archivos
 };
 
-// Función para guardar el PDF
-const saveAsPDF = () => {
-  convertBtn.style.display = "inline-block"; // Mostrar el botón de conversión
-};
+
 
 // Función para manejar el evento de eliminación de una imagen
 const handleDelete = (e) => {
@@ -88,13 +87,21 @@ const moveDown = (e) => {
 
 // Función para incrustar las imágenes en el PDF
 const embedImages = async () => {
+  if(margin == 'sinMargen'){
+    margin = 0;
+  }else if(margin == 'pequeño'){
+    margin = 20;
+  }else if(margin == 'grande'){
+    margin = 30;
+  }
+
   const pdfDoc = await PDFLib.PDFDocument.create();
   for (let i = 0; i < data.length; i++) {
     const jpgUrl = data[i].list.result;
     const jpgImageBytes = await fetch(jpgUrl).then((res) => res.arrayBuffer());
     const jpgImage = await pdfDoc.embedJpg(jpgImageBytes);
     const page = pdfDoc.addPage();
-    if (valid) {
+    if (size == 1) {
       // Obtener el tamaño de la imagen
       const jpgDims = jpgImage.scale(0.5);
       const jpgWidth = jpgDims.width;
@@ -147,9 +154,6 @@ function convertToPDF() {
       handleDelete(e);
     });
 
-    
-
-  
     modify.appendChild(btnDel);
     fileItem.appendChild(modify);
 
@@ -217,7 +221,7 @@ function convertToPDF() {
   p.appendChild(i);
 
   const label = document.createElement("label");
-  label.innerHTML = "Add Files";
+  label.innerHTML = "Añadir imagen";
   
   addFile.appendChild(p);
   addFile.appendChild(label);
@@ -231,3 +235,24 @@ const backToHome = () => {
   location.reload();
 };
 home.addEventListener("click", backToHome);
+
+
+optionSize.addEventListener("change", (e) => {
+  if(e.target.value === "a4"){
+    size = 0;
+  }else{
+    size = 1;
+  }
+});
+
+let selectedBtn = marginBtns[1]; // Establecer el botón predeterminado
+marginBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Agregar la clase "selected" al botón que se hizo clic
+    btn.classList.add('selected');
+    // Quitar la clase "selected" del botón predeterminado
+    selectedBtn.classList.remove('selected');
+    selectedBtn = btn;
+    margin = btn.getAttribute('data-margin');
+  });
+});
